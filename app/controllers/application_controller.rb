@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def after_sign_in_path_for(resource)
-    books_path
+    user_path(current_user)
   end
 
   def after_sign_out_path_for(resource)
@@ -17,6 +17,6 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:email,:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
   end
 end
