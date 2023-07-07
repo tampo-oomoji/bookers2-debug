@@ -12,7 +12,9 @@
         <td><%= image_tag user.get_profile_image(50,50) %></td>
         <td><%= user.name %></td>
         <td><%= link_to 'Show', user %></td>
+        <td><%= render 'relationships/btan', user: user, options: { class: ""} %></td>
       </tr>
+      
     <% end %>
   </tbody>
 </table>
