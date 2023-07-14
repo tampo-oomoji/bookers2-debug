@@ -1,7 +1,9 @@
 class Book < ApplicationRecord
   belongs_to :user
   has_many :favorites, dependent: :destroy
+  has_many :favorited_users, through: :favorites, source: :user
   has_many :post_comments, dependent: :destroy
+  has_many :week_favorites, -> { where(created_at: 1.week.ago.beginning_of_day..Time.current.end_of_day) }
   validates :title,presence:true
   validates :body,presence:true,length:{maximum:200}
   
@@ -16,7 +18,7 @@ class Book < ApplicationRecord
      @book = Book.where("title LIKE?","#{content}%")
     elsif method == 'backward'
      @book = Book.where("title LIKE?","%#{content}")
-    elseif search == "partial_match"
+    elsif search == "partial_match"
      @book = Book.where("title LIKE?","%#{content}%")
     
   else
